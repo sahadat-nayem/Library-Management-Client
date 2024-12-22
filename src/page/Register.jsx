@@ -1,9 +1,11 @@
 import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import registerLottieData from '../../src/assets/Animation - 1734900836147.json';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { sendPasswordResetEmail } from "firebase/auth";
+import Lottie from "lottie-react";
 
 
 const Register = () => {
@@ -88,6 +90,9 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center mt-10">
+            <div className="text-center lg:text-left w-96">
+                <Lottie animationData={registerLottieData}></Lottie>
+            </div>
             <div className="card bg-base-100 w-full max-w-lg rounded-none shrink-0 p-10">
                 <h2 className="text-2xl font-semibold text-center mt-10">Register your account</h2>
                 <form className="card-body" onSubmit={handleSubmit}>

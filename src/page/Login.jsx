@@ -1,10 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import loginLottieData from '../../src/assets/Login - 1734906953737.json';
 import { FcGoogle } from "react-icons/fc";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { sendPasswordResetEmail } from "firebase/auth";
+import Lottie from "lottie-react";
 
 
 const Login = () => {
@@ -58,7 +60,10 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen flex justify-center items-center mt-10">
+        <div className="min-h-screen flex justify-center items-center mt-10 gap-5">
+            <div className="text-center lg:text-right w-96">
+                <Lottie animationData={loginLottieData}></Lottie>
+            </div>
             <div className="card bg-base-100 w-full max-w-lg rounded-none shrink-0 p-10">
                 <h2 className="text-2xl font-semibold text-center mt-10">Login your account</h2>
                 <form className="card-body" onSubmit={handleSubmit}>
