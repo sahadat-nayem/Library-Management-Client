@@ -14,6 +14,10 @@ import AddBooks from './page/AddBooks.jsx';
 import BorrowedBooks from './page/BorrowedBooks.jsx';
 import LibraryPlans from './page/LibraryPlans.jsx';
 import Tutorials from './page/Tutorials.jsx';
+import AuthProvider from './provider/AuthProvider.jsx';
+import Login from './page/Login.jsx';
+import Register from './page/Register.jsx';
+import AuthLayout from './layout/AuthLayout.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +42,7 @@ const router = createBrowserRouter([
         element: <BorrowedBooks></BorrowedBooks>
       },
       {
-        path: '/livraryPlans',
+        path: '/libraryPlans',
         element: <LibraryPlans></LibraryPlans>
       },
       {
@@ -47,10 +51,26 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/auth",
+    element: <AuthLayout></AuthLayout>,
+    children:[
+      {
+        path:'/auth/login',
+        element: <Login></Login>
+      },
+      {
+        path:'/auth/register',
+        element: <Register></Register>
+      }
+    ]
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

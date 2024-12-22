@@ -30,7 +30,7 @@ const Books = () => {
             <div className="md:flex gap-5 justify-center max-w-6xl mx-auto mt-10">
                 <img className="size-80" src="https://i.ibb.co.com/QJLcTgb/images-4.jpg" alt="" />
                 <div>
-                    <h2 className="text-5xl font-bold">Libib Pro Users Can Access Even More Power.</h2><br />
+                    <h2 className="text-5xl font-bold">Library Pro Users Can Access Even More Power.</h2><br />
                     <p className="text-3xl text-gray-400">Need lending, patron management, custom fields, barcode management, single click restorations, or an interactive online library? Libib Pro brings an abundance of additional enhancements to the table.</p>
                 </div>
             </div>
