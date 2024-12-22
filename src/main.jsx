@@ -13,6 +13,7 @@ import AllBooks from './page/AllBooks.jsx';
 import AddBooks from './page/AddBooks.jsx';
 import BorrowedBooks from './page/BorrowedBooks.jsx';
 import LibraryPlans from './page/LibraryPlans.jsx';
+import Tutorials from './page/Tutorials.jsx';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/livraryPlans',
         element: <LibraryPlans></LibraryPlans>
+      },
+      {
+        path: '/tutorials',
+        element: <Tutorials></Tutorials>
       }
     ]
   },
