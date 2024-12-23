@@ -1,5 +1,6 @@
 
 
+
 const Banner = () => {
     return (
         <>
@@ -41,6 +42,8 @@ const Banner = () => {
                 </div>
             </div>
         </div>
+            <div className="mt-10 mb-10">
+            </div>
         </>
     );
 };

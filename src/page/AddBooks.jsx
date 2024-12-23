@@ -59,7 +59,7 @@ const AddBooks = () => {
                 </div>
                 <div className="form-control mb-8">
                         <label className="label">
-                            <span className="label-text">Country image</span>
+                            <span className="label-text">Books image</span>
                         </label>
                         <input type="text" name="photo" placeholder="Enter photo URL" className="input input-bordered w-full" required />
                     </div>

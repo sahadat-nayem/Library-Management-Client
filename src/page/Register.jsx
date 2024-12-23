@@ -6,6 +6,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { sendPasswordResetEmail } from "firebase/auth";
 import Lottie from "lottie-react";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
@@ -62,7 +63,21 @@ const Register = () => {
             .then(res => res.json())
             .then(data =>{
                 if(data.insertedId){
-                    alert("User added successfully")
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.onmouseenter = Swal.stopTimer;
+                          toast.onmouseleave = Swal.resumeTimer;
+                        }
+                      });
+                      Toast.fire({
+                        icon: "success",
+                        title: "Signed Up successfully"
+                      });
                 }
             })
             

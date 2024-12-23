@@ -18,6 +18,8 @@ import AuthProvider from './provider/AuthProvider.jsx';
 import Login from './page/Login.jsx';
 import Register from './page/Register.jsx';
 import AuthLayout from './layout/AuthLayout.jsx';
+import BookDetails from './page/BookDetails.jsx';
+import PrivateRouter from './routes/PrivateRoutes.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,8 @@ const router = createBrowserRouter([
       },
       {
         path: '/allBooks',
-        element: <AllBooks></AllBooks>
+        element: <PrivateRouter><AllBooks></AllBooks></PrivateRouter>,
+        loader: () => fetch('http://localhost:5000/books')
       },
       {
         path: '/addBooks',
@@ -48,6 +51,11 @@ const router = createBrowserRouter([
       {
         path: '/tutorials',
         element: <Tutorials></Tutorials>
+      },
+      {
+        path:'/book/:id',
+        element: <BookDetails></BookDetails>,
+        loader: ({params}) => fetch(`http://localhost:5000/books/${params.id}`)
       }
     ]
   },
