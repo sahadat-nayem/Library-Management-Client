@@ -21,7 +21,7 @@ const BookDetails = () => {
                 <p>{Rating}</p>
                 <p>Short Description : {ShortDescription}</p>
                 <div className="card-actions">
-                <button className="btn btn-primary">Buy Now</button>
+                <button className="btn btn-info md:w-96">Borrow </button>
                 </div>
             </div>
         </div>

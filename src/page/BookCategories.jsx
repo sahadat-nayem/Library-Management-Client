@@ -1,28 +1,51 @@
-// import { useEffect, useState } from "react";
-// import AllBooks from "./AllBooks";
+// import { useLoaderData } from 'react-router-dom';
 
+import { Link } from "react-router-dom";
 
-// const BookCategories = () => {
+const BookCategories = ({bookCategories}) => {
 
-//     const [books, setBooks] = useState([]);
+    // const booksCategories = useLoaderData();
+    
+    const { Name, AuthorName, Category, Quantity, Rating, BookImage } = bookCategories;
+    
 
-//     // useEffect(() => {
-//     //     fetch('http://localhost:5000/books')
-//     //         .then(res => res.json())
-//     //         .then(data => {
-//     //             setBooks(data);
-//     //         })
-//     // }, [])
+    return (
+        <div>
+            <div>
+            <div className="card card-compact max-h-[420px] bg-base-100 rounded-none shadow-xl">
+                        <figure>
+                            <img
+                                className='max-w-28 mt-5'
+                                src={BookImage}
+                                alt="Shoes" />
+                        </figure>
+                    <div className="card-body p-5">
+                        <h2 className="card-title">{Name}</h2>
+                        <p>Author Name : {AuthorName}</p>
+                        <p>Category : {Category}</p>
+                        <p>Quantity : {Quantity}</p>
+                        <p>{Rating}</p>
+                        <div className="rating">
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input
+                                type="radio"
+                                name="rating-2"
+                                className="mask mask-star-2 bg-orange-400"
+                                defaultChecked />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                        </div>
+                        <div className="card-actions justify-end items-center mt-4">
+                            <Link to={`/book/${bookCategories._id}`}>
+                                <button className="btn btn-outline btn-info md:w-56">Details</button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    );
+};
 
-//     return (
-//         <div>
-//             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-//                 {
-//                     books.map(book => <AllBooks key={book._id} book={book}></AllBooks>)
-//                 }
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default BookCategories;
+export default BookCategories;

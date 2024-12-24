@@ -25,8 +25,8 @@ const AllBooks = () => {
                         <p>Quantity : {book.Quantity}</p>
                         <p>{book.Rating}</p>
                         <div className="card-actions justify-end items-center mt-4">
-                            <Link to={`/book/${book._id}`}>
-                                <button className="btn btn-primary">Details</button>
+                            <Link>
+                                <button className="btn btn-outline btn-info md:w-56">Update </button>
                             </Link>
                         </div>
                     </div>
