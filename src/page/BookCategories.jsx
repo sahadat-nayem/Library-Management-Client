@@ -12,7 +12,7 @@ const BookCategories = ({bookCategories}) => {
     return (
         <div>
             <div>
-            <div className="card card-compact max-h-[420px] bg-base-100 rounded-none shadow-xl">
+            <div className="card card-compact max-h-[470px] bg-base-100 rounded-none shadow-xl">
                         <figure>
                             <img
                                 className='max-w-28 mt-5'

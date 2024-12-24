@@ -1,11 +1,50 @@
-import React from 'react';
+import Swal from "sweetalert2";
+
 
 const AddBooks = () => {
+
+    const handleAddBooks = (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.name.value;
+        const quantity = form.quantity.value;
+        const authorName = form.authorName.value;
+        const category = form.category.value;
+        const shortDescription = form.shortDescription.value;
+        const rating = form.rating.value;
+        const photo = form.photo.value;
+        const newBook = {name, quantity, authorName, category, shortDescription, rating, photo}
+
+        // send data to the server
+        fetch('http://localhost:5000/book', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(newBook)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            if(data.insertedId){
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Book added successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+            }
+        })
+        
+        
+    }
+
     return (
         <div className="bg-[#5dade21a] p-24">
             <h2 className="text-3xl font-extrabold text-center mb-8">ADD BOOKS</h2>
             <p className="mb-8 md:px-44 text-center">Compare & explore our plans below. Once you find the perfect fit select Get Started to get your cloud catalog off the ground.</p>
-            <form>
+            <form onSubmit={handleAddBooks}>
                 <div className="md:flex">
                     <div className="form-control md:w-1/2">
                         <label className="label">
@@ -32,7 +71,7 @@ const AddBooks = () => {
                         <label className="label">
                             <span className="label-text">Category</span>
                         </label>
-                        <select className="select select-bordered w-full">
+                        <select className="select select-bordered w-full" name="category" required>
                             <option disabled selected>Select Your Category</option>
                             <option>e.g.</option>
                             <option>Novel</option>
