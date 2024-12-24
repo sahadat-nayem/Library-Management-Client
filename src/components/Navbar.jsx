@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/istockphoto-1620759890-612x612-removebg-preview.png"
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-// import userIcon from "../assets/user.png"
+import userIcon from "../assets/user.png"
 
 const Navbar = () => {
 
@@ -59,18 +59,31 @@ const Navbar = () => {
                 {links}
             </ul>
         </div>
-            {/* <div className="navbar-end relative md:left-36">
-                {user && user?.email ? 
-                    <div className="flex gap-5 items-center justify-center">
-                        <img className="size-12 rounded-full" src={user?.photoURL} />
-                        <p className="text-sm font-semibold">{user.displayName}</p>
-                    </div> : <img src={userIcon} alt="" />}
-            </div> */}
+        <div className="  md:pr-2 gap-2">
+                        {user && user?.email ? (
+                        <div className="group relative">
+                            <img
+                            className="size-12 rounded-full  border-2 to-blue-900"
+                            src={user?.photoURL}
+                            alt=""
+                            />
+                             <span className="absolute bottom-0 left-0 right-0 font-semibold bg-gray-100 text-black text-center opacity-0 group-hover:opacity-100  ">
+                                {user?.displayName}
+                            </span>
+                        </div>
+                        ) : (
+                        <div>
+                            <img
+                            className="size-10"
+                            src={userIcon}
+                            />
+                        </div>
+                        )}
+                    </div>
             <div className="navbar-end">
                 {
                     user && user?.email ? <button onClick={handleSignOut} className="btn">Log-out</button> : <Link to="/auth/login" className="btn">Login</Link>
                 }
-                {/* <Link to="/auth/login" className="btn">Login</Link> */}
             </div>
     </div>
     );

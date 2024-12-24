@@ -5,9 +5,9 @@ import Swal from 'sweetalert2';
 const UpdateBooks = () => {
 
     const updateBook = useLoaderData();
-    const { Name, AuthorName, Category, Rating, BookImage } = updateBook;
+    const {_id, Name, AuthorName, Category, Rating, BookImage } = updateBook;
 
-    const handleUpdateBooks = (e) => {
+    const handleUpdateBooks = e => {
             e.preventDefault();
     
             const form = e.target;
