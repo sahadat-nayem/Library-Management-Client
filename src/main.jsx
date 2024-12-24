@@ -20,7 +20,7 @@ import Register from './page/Register.jsx';
 import AuthLayout from './layout/AuthLayout.jsx';
 import BookDetails from './page/BookDetails.jsx';
 import PrivateRouter from './routes/PrivateRoutes.jsx';
-import BookCategories from './page/BookCategories.jsx';
+import UpdateBooks from './page/UpdateBooks.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +43,11 @@ const router = createBrowserRouter([
         element: <AddBooks></AddBooks>
       },
       {
+        path: '/updateBooks/:id',
+        element: <UpdateBooks></UpdateBooks>,
+        loader: ({params}) => fetch(`http://localhost:5000/books/${params.id}`)
+      },
+      {
         path: '/borrowedBooks',
         element: <BorrowedBooks></BorrowedBooks>
       },
@@ -56,7 +61,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/book/:id',
-        element: <BookDetails></BookDetails>,
+        element: <PrivateRouter><BookDetails></BookDetails></PrivateRouter>,
         loader: ({params}) => fetch(`http://localhost:5000/books/${params.id}`)
       },
     ]
