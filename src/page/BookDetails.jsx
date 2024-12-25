@@ -1,9 +1,55 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const BookDetails = () => {
 
-    const {Name, Quantity, AuthorName, Category,ShortDescription, Rating, BookImage} = useLoaderData();
+    const {_id, Name, Quantity, AuthorName, Category,ShortDescription, Rating, BookImage} = useLoaderData();
+
+    // BorrowedBooks page
+
+    const handleBorrowBooks = (e) => {
+            e.preventDefault();
+    
+            const form = e.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const borrowBook = {name, email};
+            console.log(borrowBook);
+            
+    
+            // send data to the server
+            fetch('http://localhost:5000/borrow', {
+                method: 'POST',
+                headers: {
+                    'content-type' : 'application/json'
+                },
+                body: JSON.stringify(borrowBook)
+            })
+            .then(res => res.json())
+            .then(data =>{
+                console.log(data);
+                if(data.insertedId){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.onmouseenter = Swal.stopTimer;
+                          toast.onmouseleave = Swal.resumeTimer;
+                        }
+                      });
+                      Toast.fire({
+                        icon: "success",
+                        title: "Book borrow added successfully"
+                      });
+                }
+            })
+            
+            
+        }
     
 
     return (
@@ -28,19 +74,22 @@ const BookDetails = () => {
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                         </form>
-                        <h3 className="font-bold text-lg">Fill up the form</h3>
-                        <div className="form-control md:w-96">
-                            <label className="label">
-                                <span className="label-text">Name</span>
-                            </label>
-                            <input type="text" name="name" defaultValue={Name} placeholder="Name" className="input input-bordered w-full" required />
-                        </div>
-                        <div className="form-control md:w-96">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
-                        </div>
+                        <form onSubmit={handleBorrowBooks}>
+                            <h3 className="font-bold text-lg">Fill up the form</h3>
+                            <div className="form-control md:w-96">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input type="text" name="name" defaultValue={Name} placeholder="Name" className="input input-bordered w-full" required />
+                            </div>
+                            <div className="form-control md:w-96">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
+                            </div>
+                                <input type="submit" value="Submit" className="btn btn-info mt-3" />
+                        </form>
                     </div>
                 </dialog>
                 </div>

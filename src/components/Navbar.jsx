@@ -59,7 +59,7 @@ const Navbar = () => {
                 {links}
             </ul>
         </div>
-        <div className="  md:pr-2 gap-2">
+                    <div className="md:pr-2 gap-2">
                         {user && user?.email ? (
                         <div className="group relative">
                             <img
