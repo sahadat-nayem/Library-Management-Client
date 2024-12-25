@@ -10,8 +10,8 @@ import HomeLayout from './layout/HomeLayout.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
 import Home from './components/Home.jsx';
 import AllBooks from './page/AllBooks.jsx';
-import AddBooks from './page/AddBooks.jsx';
 import BorrowedBooks from './page/BorrowedBooks.jsx';
+import AddBooks from './page/AddBooks.jsx';
 import LibraryPlans from './page/LibraryPlans.jsx';
 import Tutorials from './page/Tutorials.jsx';
 import AuthProvider from './provider/AuthProvider.jsx';
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/borrowBooks',
-        element: <PrivateRouter><BorrowedBooks></BorrowedBooks></PrivateRouter>,
+        element: <BorrowedBooks></BorrowedBooks>,
         loader: () => fetch('http://localhost:5000/borrow')
       },
       {

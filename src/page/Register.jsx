@@ -53,7 +53,7 @@ const Register = () => {
             const newUser = {name, email}
 
              // save new user info to the database
-             fetch('https://assignment-10-server-ten-bice.vercel.app/users', {
+             fetch('http://localhost:5000/borrow', {
                 method: 'POST',
                 headers: {
                     'content-type' : 'application/json'
