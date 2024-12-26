@@ -1,13 +1,14 @@
-import React from 'react';
+import { RiDeleteBin2Fill } from "react-icons/ri";
 import { useLoaderData } from 'react-router-dom';
 
 const BorrowedBooks = () => {
 
-    const borrowedBooks = useLoaderData();
+    const loadedBooks = useLoaderData();
+    // const [borrowedBooks, setBorrowedBooks] = useState(loadedBooks);
 
     return (
         <div>
-            <h2 className='text-3xl text-center'>Borrowed Books : {borrowedBooks.length}</h2>
+            <h2 className='text-3xl text-center'>Borrowed Books : {loadedBooks.length}</h2>
             <div className="overflow-x-auto">
             <table className="table">
                 {/* head */}
@@ -15,18 +16,20 @@ const BorrowedBooks = () => {
                 <tr>
                     <th></th>
                     <th>Name</th>
-                    <th>Job</th>
-                    <th>Favorite Color</th>
+                    <th>Email</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 {/* row 1 */}
-                <tr>
+                    {
+                        loadedBooks.map(book => <tr key={book._id}>
                     <th>1</th>
-                    <td>Cy Ganderton</td>
-                    <td>Quality Control Specialist</td>
-                    <td>Blue</td>
-                </tr>
+                    <td>{book.name}</td>
+                    <td>{book.email}</td>
+                    <td className="text-xl hover:text-red-500"><RiDeleteBin2Fill /></td>
+                </tr>)
+                    }
                 </tbody>
             </table>
             </div>
