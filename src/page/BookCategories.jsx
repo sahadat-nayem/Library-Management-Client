@@ -1,30 +1,27 @@
-// import { useLoaderData } from 'react-router-dom';
 
 import { Link } from "react-router-dom";
 
 const BookCategories = ({bookCategories}) => {
 
-    // const booksCategories = useLoaderData();
     
-    const { Name, AuthorName, Category, Quantity, Rating, BookImage } = bookCategories;
     
 
     return (
         <div>
             <div>
-            <div className="card card-compact max-h-[470px] bg-base-100 rounded-none shadow-xl">
+            <div className="card card-compact max-h-[410px] bg-base-100 rounded-none shadow-xl">
                         <figure>
                             <img
-                                className='max-w-28 mt-5'
-                                src={BookImage}
+                                className='max-w-28 max-h-28 mt-5'
+                                src={bookCategories.photo}
                                 alt="Shoes" />
                         </figure>
                     <div className="card-body p-5">
-                        <h2 className="card-title">{Name}</h2>
-                        <p>Author Name : {AuthorName}</p>
-                        <p>Category : {Category}</p>
-                        <p>Quantity : {Quantity}</p>
-                        <p>{Rating}</p>
+                        <h2 className="card-title">{bookCategories.name}</h2>
+                        <p>Author Name : {bookCategories.authorName}</p>
+                        <p>Category : {bookCategories.category}</p>
+                        <p>Quantity : {bookCategories.quantity}</p>
+                        <p>{bookCategories.rating}</p>
                         <div className="rating">
                             <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                             <input

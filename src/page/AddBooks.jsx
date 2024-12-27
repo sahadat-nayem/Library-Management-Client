@@ -15,6 +15,8 @@ const AddBooks = () => {
         const rating = form.rating.value;
         const photo = form.photo.value;
         const newBook = {name, quantity, authorName, category, shortDescription, rating, photo}
+        console.log(newBook);
+        
 
         // send data to the server
         fetch('http://localhost:5000/book', {

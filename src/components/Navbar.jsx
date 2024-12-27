@@ -59,7 +59,9 @@ const Navbar = () => {
                 {links}
             </ul>
         </div>
-                    <div className="md:pr-2 gap-2">
+                    
+            <div className="navbar-end">
+            <div className="md:pr-2 gap-2">
                         {user && user?.email ? (
                         <div className="group relative">
                             <img
@@ -80,7 +82,6 @@ const Navbar = () => {
                         </div>
                         )}
                     </div>
-            <div className="navbar-end">
                 {
                     user && user?.email ? <button onClick={handleSignOut} className="btn">Log-out</button> : <Link to="/auth/login" className="btn">Login</Link>
                 }

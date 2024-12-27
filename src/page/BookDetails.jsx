@@ -1,12 +1,15 @@
+import { useState } from "react";
 import {  useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
 const BookDetails = () => {
 
-    const {_id, Name, Quantity, AuthorName, Category,ShortDescription, Rating, BookImage} = useLoaderData();
+    const {_id, name, quantity, authorName, category,shortDescription, rating, photo} = useLoaderData();
 
     // BorrowedBooks page
+
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
     const handleBorrowBooks = (e) => {
             e.preventDefault();
@@ -30,6 +33,7 @@ const BookDetails = () => {
             .then(data =>{
                 console.log(data);
                 if(data.insertedId){
+                    setIsSubmitDisabled(true);
                     const Toast = Swal.mixin({
                         toast: true,
                         position: "top-end",
@@ -56,16 +60,16 @@ const BookDetails = () => {
         <div className="card bg-base-100 max-w-[760px] shadow-xl mx-auto">
             <figure className="px-10 pt-10">
                 <img
-                src={BookImage}
+                src={photo}
                 className="rounded-xl max-w-96 max-h-96" />
             </figure>
             <div className="card-body items-center text-center">
-                <h2 className="card-title">{Name}</h2>
-                <p>Author Name : {AuthorName}</p>
-                <p>Category : {Category}</p>
-                <p>Quantity : {Quantity}</p>
-                <p>{Rating}</p>
-                <p>Short Description : {ShortDescription}</p>
+                <h2 className="card-title">{name}</h2>
+                <p>Author Name : {authorName}</p>
+                <p>Category : {category}</p>
+                <p>Quantity : {quantity}</p>
+                <p>{rating}</p>
+                <p>Short Description : {shortDescription}</p>
                 <div className="card-actions">
                 <button className="btn btn-info md:w-96" onClick={()=>document.getElementById('my_modal_3').showModal()}>Borrow </button>
                 <dialog id="my_modal_3" className="modal">
@@ -76,11 +80,16 @@ const BookDetails = () => {
                         </form>
                         <form onSubmit={handleBorrowBooks}>
                             <h3 className="font-bold text-lg">Fill up the form</h3>
+                            {/* <figure className="px-10 pt-10">
+                                <img
+                                src={BookImage}
+                                className="rounded-xl max-w-96 max-h-96" />
+                            </figure> */}
                             <div className="form-control md:w-96">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" name="name" defaultValue={Name} placeholder="Name" className="input input-bordered w-full" required />
+                                <input type="text" name="name" defaultValue={name} placeholder="Name" className="input input-bordered w-full" required />
                             </div>
                             <div className="form-control md:w-96">
                                 <label className="label">
@@ -88,7 +97,7 @@ const BookDetails = () => {
                                 </label>
                                 <input type="email" name="email" placeholder="Email" className="input input-bordered w-full" required />
                             </div>
-                                <input type="submit" value="Submit" className="btn btn-info mt-3" />
+                                <input type="submit" value="Submit" className="btn btn-info mt-3" disabled={isSubmitDisabled} />
                         </form>
                     </div>
                 </dialog>

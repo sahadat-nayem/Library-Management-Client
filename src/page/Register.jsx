@@ -7,6 +7,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { sendPasswordResetEmail } from "firebase/auth";
 import Lottie from "lottie-react";
 import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const Register = () => {
@@ -22,17 +23,15 @@ const Register = () => {
         // get form data
         const form = new FormData(e.target);
         const name = form.get("name");
-        if(name.length <5){
-            setError({...error, name:"Must be more the 5 character long"});
-            return;
-        }
         const photo = form.get("photo");
         const email = form.get("email");
         const password = form.get("password");
-        if(password.length <6){
-            setError({...error, password:"Must be more the 6 character long"});
-            return;
-        }
+        const passwordVerification = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if (!passwordVerification.test(password)) {
+        toast.error(
+            "Password must have uppercase, lowercase, and 6+ characters."
+        )
+        return;}
         
 
         createUser(email, password,name,photo)
@@ -159,6 +158,7 @@ const Register = () => {
                     <button className="btn btn-info rounded-none">Register</button>
                     </div>
                 </form>
+                <ToastContainer />
                 <p className="text-center font-semibold">Already Have An Account ? <Link to="/auth/login" className="text-red-500">Login</Link></p>
             </div>
         </div>

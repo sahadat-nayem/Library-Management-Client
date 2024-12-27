@@ -8,6 +8,8 @@ import Banner from "./Banner";
 const Home = () => {
 
     const booksCategories = useLoaderData();
+    
+    
 
     return (
         <div>

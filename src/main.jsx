@@ -31,12 +31,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:5000/book')
+        loader: () => fetch('http://localhost:5000/book/two')
       },
       {
         path: '/allBooks',
         element: <PrivateRouter><AllBooks></AllBooks></PrivateRouter>,
-        loader: () => fetch('http://localhost:5000/books')
+        loader: () => fetch('http://localhost:5000/book')
       },
       {
         path: '/addBooks',
@@ -45,11 +45,11 @@ const router = createBrowserRouter([
       {
         path: '/updateBooks/:id',
         element: <UpdateBooks></UpdateBooks>,
-        loader: ({params}) => fetch(`http://localhost:5000/books/${params.id}`)
+        loader: ({params}) => fetch(`http://localhost:5000/book/${params.id}`)
       },
       {
         path: '/borrowBooks',
-        element: <BorrowedBooks></BorrowedBooks>,
+        element: <PrivateRouter><BorrowedBooks></BorrowedBooks></PrivateRouter>,
         loader: () => fetch('http://localhost:5000/borrow')
       },
       {

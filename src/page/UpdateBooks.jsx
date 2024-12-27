@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 const UpdateBooks = () => {
 
     const updateBook = useLoaderData();
-    const {_id, Name, AuthorName, Category, Rating, BookImage } = updateBook;
+    const {_id, name, authorName, category, rating, photo } = updateBook;
 
     const handleUpdateBooks = e => {
             e.preventDefault();
@@ -22,8 +22,9 @@ const UpdateBooks = () => {
             fetch(`http://localhost:5000/book/${_id}`, {
                 method: 'PUT',
                 headers: {
-                    'content-type' : 'application/json'
-                },
+                    "Content-Type": "application/json"
+                  },
+                  
                 body: JSON.stringify(newBook)
             })
             .then(res => res.json())
@@ -52,13 +53,13 @@ const UpdateBooks = () => {
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input type="text" name="name" defaultValue={Name} placeholder="Name" className="input input-bordered w-full" required />
+                        <input type="text" name="name" defaultValue={name} placeholder="Name" className="input input-bordered w-full" required />
                     </div>
                     <div className="form-control md:w-1/2 md:ml-4">
                         <label className="label">
                             <span className="label-text">Rating</span>
                         </label>
-                        <input type="number" name="rating" defaultValue={Rating} placeholder="Rating" min="1" max="5" step="1" className="input input-bordered w-full" required />
+                        <input type="number" name="rating" defaultValue={rating} placeholder="Rating" min="1" max="5" step="1" className="input input-bordered w-full" required />
                     </div>  
                 </div>
                 <div className="md:flex">
@@ -66,13 +67,13 @@ const UpdateBooks = () => {
                         <label className="label">
                             <span className="label-text">Author Name</span>
                         </label>
-                        <input type="text" name="authorName" defaultValue={AuthorName} placeholder="Author Name" className="input input-bordered w-full" required />
+                        <input type="text" name="authorName" defaultValue={authorName} placeholder="Author Name" className="input input-bordered w-full" required />
                     </div>
                     <div className="form-control md:w-1/2 md:ml-4">
                         <label className="label">
                             <span className="label-text">Category</span>
                         </label>
-                        <select className="select select-bordered w-full" defaultValue={Category} name="category" required>
+                        <select className="select select-bordered w-full" defaultValue={category} name="category" required>
                             <option disabled selected>Select Your Category</option>
                             <option>e.g.</option>
                             <option>Novel</option>
@@ -87,7 +88,7 @@ const UpdateBooks = () => {
                         <label className="label">
                             <span className="label-text">Books image</span>
                         </label>
-                        <input type="text" name="photo" defaultValue={BookImage} placeholder="Enter photo URL" className="input input-bordered w-full" required />
+                        <input type="text" name="photo" defaultValue={photo} placeholder="Enter photo URL" className="input input-bordered w-full" required />
                     </div>
                 <button className="bg-[#5dade286] w-full py-3 font-semibold">Update Books</button>
             </form>
