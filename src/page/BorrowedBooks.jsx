@@ -65,8 +65,8 @@ const BorrowedBooks = () => {
                 <tbody>
                 {/* row 1 */}
                     {
-                        borrowedBooks.map(book => <tr key={book._id}>
-                    <th>1</th>
+                        borrowedBooks.map((book,index) => <tr key={book._id}>
+                    <th>{index + 1}</th>
                     <td>{book.name}</td>
                     <td>{book.email}</td>
                     <td className="text-xl hover:text-red-500" onClick={() => handleBorrowDelete(book._id)}><RiDeleteBin2Fill /></td>
