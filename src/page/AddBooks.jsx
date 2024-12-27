@@ -19,7 +19,7 @@ const AddBooks = () => {
         
 
         // send data to the server
-        fetch('http://localhost:5000/book', {
+        fetch('https://assignment-11-server-ivory-two.vercel.app/book', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'

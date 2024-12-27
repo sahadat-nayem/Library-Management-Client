@@ -64,10 +64,10 @@ The Library Management System is a web-based application designed for a well-ren
 
 ## 📖 Additional Information
 - **GitHub Repositories**:
-  - [Client Repository]()
-  - [Server Repository]()
+  - [Client Repository](https://github.com/programming-hero-web-course2/b10a11-client-side-sahadat-nayem)
+  - [Server Repository](https://github.com/programming-hero-web-course2/b10a11-server-side-sahadat-nayem)
 - **Deployment**:
-  - Client: Hosted on [Vercel]().
-  - Server: Hosted on [Vercel]().
+  - Client: Hosted on [Vercel](https://library-management-72606.web.app).
+  - Server: Hosted on [Vercel](https://assignment-11-server-h2apjd19r-shahadat-nayems-projects.vercel.app).
 
 For any questions or feedback, feel free to [contact us](mailto:sahadatnayem333@gmail.com)!
