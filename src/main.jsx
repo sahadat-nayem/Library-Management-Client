@@ -21,6 +21,7 @@ import AuthLayout from './layout/AuthLayout.jsx';
 import BookDetails from './page/BookDetails.jsx';
 import PrivateRouter from './routes/PrivateRoutes.jsx';
 import UpdateBooks from './page/UpdateBooks.jsx';
+import MyProfile from './page/MyProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
         path:'/book/:id',
         element: <PrivateRouter><BookDetails></BookDetails></PrivateRouter>,
         loader: ({params}) => fetch(`https://assignment-11-server-ivory-two.vercel.app/books/${params.id}`)
+      },
+      {
+        path: '/myProfile',
+        element: <MyProfile></MyProfile>
       },
     ]
   },
