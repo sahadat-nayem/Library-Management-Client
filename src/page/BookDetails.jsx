@@ -22,7 +22,7 @@ const BookDetails = () => {
             
     
             // send data to the server
-            fetch('https://assignment-11-server-ivory-two.vercel.app/borrow', {
+            fetch('http://localhost:5000/borrow', {
                 method: 'POST',
                 headers: {
                     'content-type' : 'application/json'

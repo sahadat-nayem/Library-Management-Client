@@ -21,7 +21,7 @@ const BorrowedBooks = () => {
             if (result.isConfirmed) {
 
             //   Delete from the database
-            fetch(`https://assignment-11-server-ivory-two.vercel.app/borrow/${id}`, {
+            fetch(`http://localhost:5000/borrow/${id}`, {
                 method: 'DELETE'
             })
             .then(res => res.json())

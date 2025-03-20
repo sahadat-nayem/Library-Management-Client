@@ -32,12 +32,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('https://assignment-11-server-ivory-two.vercel.app/book/two')
+        loader: () => fetch('http://localhost:5000/book/two')
       },
       {
         path: '/allBooks',
         element: <PrivateRouter><AllBooks></AllBooks></PrivateRouter>,
-        loader: () => fetch('https://assignment-11-server-ivory-two.vercel.app/book')
+        loader: () => fetch('http://localhost:5000/book')
       },
       {
         path: '/addBooks',
@@ -46,12 +46,12 @@ const router = createBrowserRouter([
       {
         path: '/updateBooks/:id',
         element: <UpdateBooks></UpdateBooks>,
-        loader: ({params}) => fetch(`https://assignment-11-server-ivory-two.vercel.app/book/${params.id}`)
+        loader: ({params}) => fetch(`http://localhost:5000/book/${params.id}`)
       },
       {
         path: '/borrowBooks',
         element: <PrivateRouter><BorrowedBooks></BorrowedBooks></PrivateRouter>,
-        loader: () => fetch('https://assignment-11-server-ivory-two.vercel.app/borrow')
+        loader: () => fetch('http://localhost:5000/borrow')
       },
       {
         path: '/libraryPlans',
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
       {
         path:'/book/:id',
         element: <PrivateRouter><BookDetails></BookDetails></PrivateRouter>,
-        loader: ({params}) => fetch(`https://assignment-11-server-ivory-two.vercel.app/books/${params.id}`)
+        loader: ({params}) => fetch(`http://localhost:5000/books/${params.id}`)
       },
       {
         path: '/myProfile',

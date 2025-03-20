@@ -1,48 +1,48 @@
-
+import { FaRegStar } from "react-icons/fa";
+import { MdStar } from "react-icons/md";
+import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
-const BookCategories = ({bookCategories}) => {
-
-    
-    
-
-    return (
-        <div>
-            <div>
-            <div className="card card-compact max-h-[410px] bg-base-100 rounded-none shadow-xl">
-                        <figure>
-                            <img
-                                className='max-w-28 max-h-28 mt-5'
-                                src={bookCategories.photo}
-                                alt="Shoes" />
-                        </figure>
-                    <div className="card-body p-5">
-                        <h2 className="card-title">{bookCategories.name}</h2>
-                        <p>Author Name : {bookCategories.authorName}</p>
-                        <p>Category : {bookCategories.category}</p>
-                        <p>Quantity : {bookCategories.quantity}</p>
-                        <p>{bookCategories.rating}</p>
-                        <div className="rating">
-                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                            <input
-                                type="radio"
-                                name="rating-2"
-                                className="mask mask-star-2 bg-orange-400"
-                                defaultChecked />
-                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                        </div>
-                        <div className="card-actions justify-end items-center mt-4">
-                            <Link to={`/book/${bookCategories._id}`}>
-                                <button className="btn btn-outline btn-info md:w-56">Details</button>
-                            </Link>
-                        </div>
-                    </div>
-                </div>   
-            </div>
+const BookCategories = ({ bookCategories }) => {
+  return (
+    <div>
+      <div className="card bg-base-100 shadow-xl">
+        <div className="bg-black glass m-4 rounded-xl">
+          <figure className="py-8">
+            <img
+              src={bookCategories.photo}
+              alt="Shoes"
+              className="rounded-xl w-60 h-[270px]"
+            />
+          </figure>
         </div>
-    );
+        <div className="card-body mt-[-20px]">
+          <div className="border-dashed border-b pb-4">
+            <h2 className="text-xl font-bold">{bookCategories.name}</h2>
+            <p className="font-semibold mt-2">
+              By: {bookCategories.authorName}
+            </p>
+            <p className="font-semibold mt-2"> {bookCategories.category}</p>
+            <p className="font-semibold mt-2"> {bookCategories.quantity}</p>
+          </div>
+          <div className="flex mb-[-20px]">
+            <p>
+              <Rating
+                initialRating={bookCategories.rating}
+                emptySymbol={<FaRegStar size={30} style={{ color: "#ccc" }} />}
+                fullSymbol={<MdStar size={30} style={{ color: "#f8b400" }} />}
+              />
+            </p>
+            <Link to={`/book/${bookCategories._id}`}>
+              <button className="btn btn-info btn-outline text-white">
+                Details
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BookCategories;

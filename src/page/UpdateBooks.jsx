@@ -21,7 +21,7 @@ const UpdateBooks = () => {
             
     
             // send data to the server
-            fetch(`https://assignment-11-server-ivory-two.vercel.app/book/${_id}`, {
+            fetch(`http://localhost:5000/book/${_id}`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json"
