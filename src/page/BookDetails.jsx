@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaRegStar } from "react-icons/fa";
@@ -10,6 +10,20 @@ import { AuthContext } from "../provider/AuthProvider";
 
 const BookDetails = () => {
   const { user } = useContext(AuthContext);
+  let bookData = useLoaderData() || {};
+
+  console.log("📌 Book Details Data:", bookData); // Debugging Log
+
+  // Ensure bookData contains expected keys
+  if (!bookData || !bookData._id) {
+    console.error("🚨 Error: Invalid book data!", bookData);
+    return (
+      <h1 className="text-center text-red-500 mt-10">
+        Error: Book details not found!
+      </h1>
+    );
+  }
+
   const {
     _id,
     name,
@@ -19,14 +33,35 @@ const BookDetails = () => {
     shortDescription,
     rating,
     photo,
-  } = useLoaderData();
+  } = bookData;
 
   const [startDate, setStartDate] = useState(null);
   const [borrowDate, setBorrowDate] = useState("");
+  const [isBookBorrowed, setIsBookBorrowed] = useState(false);
+
+  useEffect(() => {
+    // Check if the user has already borrowed this book
+    const checkBorrowStatus = () => {
+      if (!user?.email) return;
+
+      fetch(`http://localhost:5000/borrow/email?email=${user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const isAlreadyBorrowed = data.some(
+            (borrow) => borrow.bookId === _id
+          );
+          setIsBookBorrowed(isAlreadyBorrowed);
+        })
+        .catch((error) =>
+          console.error("Error checking borrow status:", error)
+        );
+    };
+
+    checkBorrowStatus();
+  }, [user, _id]);
 
   const handleBorrowClick = () => {
-    const today = new Date().toLocaleDateString();
-    setBorrowDate(today);
+    setBorrowDate(new Date().toLocaleDateString());
     document.getElementById("my_modal_3").showModal();
   };
 
@@ -36,24 +71,35 @@ const BookDetails = () => {
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
-    const returnDate = startDate;
-    const borrowBook = { name, email, borrowDate, returnDate };
+    const returnDate = startDate ? startDate : "No return date selected";
+
+    const borrowBook = {
+      name,
+      email,
+      bookId: _id,
+      bookName: name,
+      authorName,
+      category,
+      photo,
+      borrowDate,
+      returnDate,
+    };
+
+    console.log("📌 Sending Borrow Data:", borrowBook);
 
     fetch("http://localhost:5000/borrow", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(borrowBook),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          // SweetAlert for successful submission
           Swal.fire({
             icon: "success",
             title: "Book borrowed successfully!",
           });
-
-          // Close the modal after successful submission
+          setIsBookBorrowed(true); // Update the status to borrowed
           document.getElementById("my_modal_3").close();
         }
       });
@@ -98,8 +144,9 @@ const BookDetails = () => {
         <button
           className="btn btn-info w-full mt-4"
           onClick={handleBorrowClick}
+          disabled={isBookBorrowed} // Disable the button if the book is borrowed
         >
-          Borrow
+          {isBookBorrowed ? "Already Borrowed" : "Borrow"}
         </button>
       </div>
 

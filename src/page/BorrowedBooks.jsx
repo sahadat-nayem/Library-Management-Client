@@ -1,82 +1,85 @@
 import { useState } from "react";
-import { RiDeleteBin2Fill } from "react-icons/ri";
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const BorrowedBooks = () => {
+  const loadedBooks = useLoaderData();
+  const [borrowedBooks, setBorrowedBooks] = useState(loadedBooks);
 
-    const loadedBooks = useLoaderData();
-    const [borrowedBooks, setBorrowedBooks] = useState(loadedBooks);
+  const handleBorrowDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to return it?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Return it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Delete from the database
+        fetch(`http://localhost:5000/borrow/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              Swal.fire({
+                title: "Return!",
+                text: "Your book has been returned successfully.",
+                icon: "success",
+              });
 
-    const handleBorrowDelete = id =>{
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-
-            //   Delete from the database
-            fetch(`http://localhost:5000/borrow/${id}`, {
-                method: 'DELETE'
-            })
-            .then(res => res.json())
-            .then(data =>{
-                if(data.deletedCount){
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                      });
-
-                      const remainingUsers = borrowedBooks.filter(book => book._id !== id);
-                      setBorrowedBooks(remainingUsers);
-
-                      const submitButton = document.querySelector("input[type='submit']");
-                            if (submitButton) {
-                                submitButton.disabled = false;
-                            }
-                }
-                
-            })
-
+              // Update state after deletion
+              const remainingBooks = borrowedBooks.filter(
+                (book) => book._id !== id
+              );
+              setBorrowedBooks(remainingBooks);
             }
           });
-        };
+      }
+    });
+  };
 
-    return (
-        <div>
-            <h2 className='text-3xl text-center font-bold'>Borrowed Books : {borrowedBooks.length}</h2>
-            <div className="overflow-x-auto">
-            <table className="table">
-                {/* head */}
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {/* row 1 */}
-                    {
-                        borrowedBooks.map((book,index) => <tr key={book._id}>
-                    <th>{index + 1}</th>
-                    <td>{book.name}</td>
-                    <td>{book.email}</td>
-                    <td className="text-xl hover:text-red-500" onClick={() => handleBorrowDelete(book._id)}><RiDeleteBin2Fill /></td>
-                </tr>)
-                    }
-                </tbody>
-            </table>
+  return (
+    <div className="grid gap-8 mb-12">
+      {borrowedBooks.map((book) => (
+        <div key={book._id} className="card bg-base-100 shadow-xl">
+          <div className="bg-black glass m-4 rounded-xl">
+            <figure className="py-8">
+              <img
+                src={book.photo}
+                alt="Book Cover"
+                className="rounded-xl w-60 h-[270px]"
+              />
+            </figure>
+          </div>
+          <div className="flex gap-8 pl-6 mt-2">
+            <h2 className="text-2xl font-bold">{book.name}</h2>
+            <p className="bg-slate-100 border text-blue-500 rounded-xl px-3 py-1">
+              {book.category}
+            </p>
+          </div>
+          <div className="card-body mt-[-30px]">
+            <div className="pb-3">
+              <p className="font-semibold mt-2">
+                Borrowed Date: {book.borrowDate}
+              </p>
+              <p className="font-semibold mt-2">
+                Return Date: {book.returnDate}
+              </p>
             </div>
+            <button
+              onClick={() => handleBorrowDelete(book._id)}
+              className="btn btn-info btn-outline text-white text-lg w-full"
+            >
+              Return
+            </button>
+          </div>
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export default BorrowedBooks;
