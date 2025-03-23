@@ -2,7 +2,8 @@ import { useLoaderData } from "react-router-dom";
 import Books from "../extraSection/Books";
 import Collection from "../extraSection/Collection";
 import BookCategories from "../page/BookCategories";
-import Banner from "./Banner";
+import Banner from "./Banner/Banner";
+// import Banner from "./Banner";
 
 
 const Home = () => {

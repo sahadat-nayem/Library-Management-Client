@@ -63,7 +63,7 @@ const Navbar = () => {
         </div>
         <a className="btn btn-ghost text-xl items-center">
           <img className="w-14" src={logo} alt="" />
-          <h3 className="text-xl">Library Management</h3>
+          <h3 className="text-xl hidden md:block">Library Management</h3>
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -81,7 +81,7 @@ const Navbar = () => {
                 alt=""
               />
             </div>
-            <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded font-semibold text-black text-sm opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-20">
+            <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded font-semibold text-white text-sm opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-20">
               {user?.displayName}
             </span>
           </Link>
