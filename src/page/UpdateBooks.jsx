@@ -1,53 +1,75 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const UpdateBooks = () => {
-  const updateBook = useLoaderData();
-  const { _id, name, authorName, category, rating, photo } = updateBook;
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [book, setBook] = useState({
+    name: "",
+    authorName: "",
+    category: "",
+    rating: "",
+    photo: "",
+  });
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/book/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setBook(data);
+        }
+      })
+      .catch((error) => console.error("Error fetching book data:", error));
+  }, [id]);
 
   const handleUpdateBooks = (e) => {
     e.preventDefault();
 
     const form = e.target;
-    const name = form.name.value;
-    const authorName = form.authorName.value;
-    const category = form.category.value;
-    const rating = form.rating.value;
-    const photo = form.photo.value;
-    const newBook = { name, authorName, category, rating, photo };
-    console.log(newBook);
+    const updatedBook = {
+      name: form.name.value,
+      authorName: form.authorName.value,
+      category: form.category.value,
+      rating: form.rating.value,
+      photo: form.photo.value,
+    };
 
-    // send data to the server
-    fetch(`http://localhost:5000/book/${_id}`, {
-      method: "PUT",
+    // Send the updated data to the backend
+    fetch(`http://localhost:5000/book/${id}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-
-      body: JSON.stringify(newBook),
+      body: JSON.stringify(updatedBook),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        if (data.modifiedCount > 0) {
+        console.log("Update Response:", data);
+        if (data.message === "Book updated successfully") {
           Swal.fire({
             title: "Success",
-            text: "Book updated successfully",
+            text: "Book updated successfully!",
             icon: "success",
             confirmButtonText: "Cool",
           });
+          navigate("/allBooks");
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: "Failed to update book!",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         }
-      });
+      })
+      .catch((error) => console.error("Error updating book:", error));
   };
 
   return (
     <div className="bg-[#5dade21a] p-24">
       <h2 className="text-3xl font-extrabold text-center mb-8">UPDATE BOOKS</h2>
-      <p className="mb-8 md:px-44 text-center">
-        Compare & explore our plans below. Once you find the perfect fit select
-        Get Started to get your cloud catalog off the ground.
-      </p>
       <form onSubmit={handleUpdateBooks}>
         <div className="md:flex">
           <div className="form-control md:w-1/2">
@@ -57,7 +79,7 @@ const UpdateBooks = () => {
             <input
               type="text"
               name="name"
-              defaultValue={name}
+              defaultValue={book.name}
               placeholder="Name"
               className="input input-bordered w-full"
               required
@@ -70,7 +92,7 @@ const UpdateBooks = () => {
             <input
               type="number"
               name="rating"
-              defaultValue={rating}
+              defaultValue={book.rating}
               placeholder="Rating"
               min="1"
               max="5"
@@ -88,7 +110,7 @@ const UpdateBooks = () => {
             <input
               type="text"
               name="authorName"
-              defaultValue={authorName}
+              defaultValue={book.authorName}
               placeholder="Author Name"
               className="input input-bordered w-full"
               required
@@ -100,19 +122,18 @@ const UpdateBooks = () => {
             </label>
             <select
               className="select select-bordered w-full"
-              defaultValue={category}
               name="category"
+              defaultValue={book.category}
               required
             >
-              <option disabled selected>
+              <option value="" disabled>
                 Select Your Category
               </option>
-              <option>e.g.</option>
-              <option>Novel</option>
-              <option>Thriller</option>
-              <option>History</option>
-              <option>Drama</option>
-              <option>Sci-Fi</option>
+              <option value="Novel">Novel</option>
+              <option value="Thriller">Thriller</option>
+              <option value="History">History</option>
+              <option value="Drama">Drama</option>
+              <option value="Sci-Fi">Sci-Fi</option>
             </select>
           </div>
         </div>
@@ -123,14 +144,14 @@ const UpdateBooks = () => {
           <input
             type="text"
             name="photo"
-            defaultValue={photo}
+            defaultValue={book.photo}
             placeholder="Enter photo URL"
             className="input input-bordered w-full"
             required
           />
         </div>
         <button className="bg-[#5dade286] w-full py-3 font-semibold">
-          Update Books
+          Update Book
         </button>
       </form>
     </div>
