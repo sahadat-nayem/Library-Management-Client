@@ -30,7 +30,7 @@ const BorrowedBooks = () => {
       confirmButtonText: "Yes, Return it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/borrow/${id}`, {
+        fetch(`https://assignment-11-server-ivory-two.vercel.app/borrow/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

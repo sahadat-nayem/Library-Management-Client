@@ -12,9 +12,8 @@ const BookDetails = () => {
   const { user } = useContext(AuthContext);
   let bookData = useLoaderData() || {};
 
-  console.log("📌 Book Details Data:", bookData); // Debugging Log
+  console.log("📌 Book Details Data:", bookData);
 
-  // Ensure bookData contains expected keys
   if (!bookData || !bookData._id) {
     console.error("🚨 Error: Invalid book data!", bookData);
     return (
@@ -40,11 +39,10 @@ const BookDetails = () => {
   const [isBookBorrowed, setIsBookBorrowed] = useState(false);
 
   useEffect(() => {
-    // Check if the user has already borrowed this book
     const checkBorrowStatus = () => {
       if (!user?.email) return;
 
-      fetch(`http://localhost:5000/borrow/email?email=${user.email}`)
+      fetch(`https://assignment-11-server-ivory-two.vercel.app/borrow/email?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           const isAlreadyBorrowed = data.some(
@@ -87,7 +85,7 @@ const BookDetails = () => {
 
     console.log("📌 Sending Borrow Data:", borrowBook);
 
-    fetch("http://localhost:5000/borrow", {
+    fetch("https://assignment-11-server-ivory-two.vercel.app/borrow", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(borrowBook),
@@ -99,7 +97,7 @@ const BookDetails = () => {
             icon: "success",
             title: "Book borrowed successfully!",
           });
-          setIsBookBorrowed(true); // Update the status to borrowed
+          setIsBookBorrowed(true);
           document.getElementById("my_modal_3").close();
         }
       });
@@ -144,7 +142,7 @@ const BookDetails = () => {
         <button
           className="btn btn-info w-full mt-4"
           onClick={handleBorrowClick}
-          disabled={isBookBorrowed} // Disable the button if the book is borrowed
+          disabled={isBookBorrowed} 
         >
           {isBookBorrowed ? "Already Borrowed" : "Borrow"}
         </button>

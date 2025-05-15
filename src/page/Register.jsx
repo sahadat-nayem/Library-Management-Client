@@ -52,7 +52,7 @@ const Register = () => {
             const newUser = {name, email}
 
              // save new user info to the database
-             fetch('http://localhost:5000/borrow', {
+             fetch('https://assignment-11-server-ivory-two.vercel.app/borrow', {
                 method: 'POST',
                 headers: {
                     'content-type' : 'application/json'

@@ -14,7 +14,7 @@ const UpdateBooks = () => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/book/${id}`)
+    fetch(`https://assignment-11-server-ivory-two.vercel.app/book/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -37,7 +37,7 @@ const UpdateBooks = () => {
     };
 
     // Send the updated data to the backend
-    fetch(`http://localhost:5000/book/${id}`, {
+    fetch(`https://assignment-11-server-ivory-two.vercel.app/book/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
